@@ -1,4 +1,8 @@
-''' Description: This file contains all the functions that are used in the churn notebook '''
+''' 
+Description: This file contains all the functions that are used in the churn notebook 
+Author: Eduardo Aviles
+Date: Apr 05, 2023
+'''
 import logging
 # import libraries
 import os
@@ -279,7 +283,8 @@ def train_models(X_train, X_test, y_train, y_test):
                                 y_test_preds_lr,
                                 y_test_preds_rf)
     # save ROC curve
-    lrc_plot = plot_roc_curve(cv_rfc.best_estimator_, X_test, y_test)
+    
+    lrc_plot = plot_roc_curve(lrc, X_test, y_test)
     plt.figure(figsize=(15, 8))
     axes = plt.gca()
     _ = plot_roc_curve(cv_rfc.best_estimator_, X_test,

@@ -1,4 +1,16 @@
-'''Description: This script is used to test the functions in the churn_library.py script'''
+"""
+This is the Python Test for the churn_library.py module.
+
+This module will be used to test
+    1. import_data
+    2. peform_eda
+    3. encode_data
+    4. perform_feature_engineering
+    5. train_test_model
+
+Author: Eduardo Aviles
+Date: Apr 05, 2023
+"""
 import os
 from pathlib import Path
 import logging
@@ -26,7 +38,9 @@ def path():
 
 
 def check_data_frame(data_frame):
-    ''' checks if data frame is a pandas data frame and has rows and columns '''
+    ''' checks if data frame is a pandas data frame and has rows and columns 
+        input:  data_frame: pandas data frame
+    '''
     assert isinstance(data_frame, pd.DataFrame)
     try:
         assert data_frame.shape[0] > 0
