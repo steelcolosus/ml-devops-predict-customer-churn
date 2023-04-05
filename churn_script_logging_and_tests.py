@@ -43,7 +43,7 @@ def test_import(path):
     '''
     try:
         data = cls.import_data(path)
-        log.info("Testing import_data: SUCCESS")
+        log.info("SUCCESS: Testing import_data")
         pytest.data = data
     except FileNotFoundError as err:
         log.error("Testing import_eda: The file wasn't found")
@@ -69,11 +69,16 @@ def test_eda():
     check_data_frame(eda_data)
 
     pytest.eda_data = eda_data
-    
+
     # Check if each file exists
     images_path = Path("./images/eda")
 
-    for file in ['Churn', 'Customer_Age', 'Marital_Status', 'Total_Trans_Ct', 'Heatmap']:
+    for file in [
+        'Churn',
+        'Customer_Age',
+        'Marital_Status',
+        'Total_Trans_Ct',
+            'Heatmap']:
         file_path = images_path.joinpath(f'{file}.png')
         try:
             assert file_path.is_file()
@@ -93,6 +98,7 @@ def test_encoder_helper():
     try:
         encoded_data = cls.encoder_helper(eda_data, cls.cat_columns, 'Churn')
         check_data_frame(encoded_data)
+        pytest.encoded_data = encoded_data
     except AssertionError as err:
         log.error("ERROR: encoder_helper failed to encode the categorical columns")
         raise err
@@ -105,8 +111,44 @@ def test_perform_feature_engineering():
     test perform_feature_engineering
     '''
 
+    check_data_frame(pytest.encoded_data)
+
+    encoded_data = pytest.encoded_data
+
+    X_train, X_test, y_train, y_test = cls.perform_feature_engineering(
+        encoded_data)
+
+    pytest.features = (X_train, X_test, y_train, y_test)
+
+    try:
+        assert len(X_train) > 0
+        assert len(X_test) > 0
+        assert len(y_train) > 0
+        assert len(y_test) > 0
+        assert len(X_train) == len(y_train)
+        assert len(X_test) == len(y_test)
+        log.info(
+            "SUCCESS: perform_feature_engineering successfully split the data")
+    except AssertionError as err:
+        log.error(
+            "ERROR: perform_feature_engineering failed to split the data")
+        raise err
+
 
 def test_train_models():
     '''
     test train_models
     '''
+    X_train, X_test, y_train, y_test = pytest.features
+
+    cls.train_models(X_train, X_test, y_train, y_test)
+
+    model_base_path = Path('./models')
+    for model_name in ['logistic_model.pkl', 'rfc_model.pkl']:
+        model_path = model_base_path.joinpath(model_name)
+        try:
+            assert model_path.is_file()
+            log.info("SUCCESS: %s model successfully saved!", model_name)
+        except AssertionError as err:
+            log.error("ERROR: %s model not found.", model_name)
+            raise err
