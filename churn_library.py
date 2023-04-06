@@ -1,11 +1,12 @@
-''' 
-Description: This file contains all the functions that are used in the churn notebook 
+'''
+Description: This file contains all the functions that are used in the churn notebook
 Author: Eduardo Aviles
 Date: Apr 05, 2023
 '''
 import logging
 # import libraries
 import os
+import time
 import joblib
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -16,12 +17,13 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import plot_roc_curve, classification_report
 from sklearn.model_selection import GridSearchCV, train_test_split
 
+
 sns.set()
 
 os.environ['QT_QPA_PLATFORM'] = 'offscreen'
 
 logging.basicConfig(
-    filename='./logs/churn_library.log',
+    filename=f"./logs/churn_library_{time.strftime('%b_%d_%Y_%H_%M_%S')}.log",
     level=logging.INFO,
     filemode='w',
     format='%(name)s - %(levelname)s - %(message)s'
@@ -47,7 +49,6 @@ def import_data(pth):
     output:
             df: pandas dataframe
     '''
-    log.info('Importing data from %s', pth)
     return pd.read_csv(pth)
 
 
@@ -283,7 +284,7 @@ def train_models(X_train, X_test, y_train, y_test):
                                 y_test_preds_lr,
                                 y_test_preds_rf)
     # save ROC curve
-    
+
     lrc_plot = plot_roc_curve(lrc, X_test, y_test)
     plt.figure(figsize=(15, 8))
     axes = plt.gca()
@@ -301,3 +302,22 @@ def train_models(X_train, X_test, y_train, y_test):
     # save models
     joblib.dump(cv_rfc.best_estimator_, 'models/rfc_model.pkl')
     joblib.dump(lrc, 'models/logistic_model.pkl')
+
+
+if __name__ == "__main__":
+    # load data
+    log.info('Importing data from')
+    raw_data = import_data("./data/bank_data.csv")
+
+    log.info('Performing EDA')
+    eda_data = perform_eda(raw_data)
+
+    log.info("Encoding categorical data")
+    encoded_data = encoder_helper(eda_data, cat_columns)
+
+    log.info("Perform feature engineering and split data")
+    X_train, X_test, y_train, y_test = perform_feature_engineering(
+        encoded_data)
+
+    log.info("Training and saving models")
+    train_models(X_train, X_test, y_train, y_test)

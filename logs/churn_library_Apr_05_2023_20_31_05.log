@@ -1,0 +1,5 @@
+[CHURN_LIBRARY] - INFO - Importing data from
+[CHURN_LIBRARY] - INFO - Performing EDA
+[CHURN_LIBRARY] - INFO - Encoding categorical data
+[CHURN_LIBRARY] - INFO - Perform feature engineering and split data
+[CHURN_LIBRARY] - INFO - Training and saving models

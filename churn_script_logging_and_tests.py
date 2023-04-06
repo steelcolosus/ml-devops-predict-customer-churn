@@ -14,8 +14,10 @@ Date: Apr 05, 2023
 import os
 from pathlib import Path
 import logging
+import time
 import pytest
 import pandas as pd
+
 
 import churn_library as cls
 
@@ -23,7 +25,7 @@ import churn_library as cls
 os.environ['QT_QPA_PLATFORM'] = 'offscreen'
 
 logging.basicConfig(
-    filename='./logs/churn_library.log',
+    filename=f"./logs/churn_library_{time.strftime('%b_%d_%Y_%H_%M_%S')}.log",
     level=logging.INFO,
     filemode='w',
     format='%(name)s - %(levelname)s - %(message)s')

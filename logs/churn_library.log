@@ -1,7 +1,0 @@
-14:42:48 - [CHURN_LIBRARY] - INFO - Importing data from ./data/bank_data.csv
-14:42:48 - [CHURN_LOGGING_AND_TESTING] - INFO - SUCCESS: Testing import_data
-14:42:49 - [CHURN_LOGGING_AND_TESTING] - INFO - SUCCESS: EDA results successfully saved!
-14:42:49 - [CHURN_LOGGING_AND_TESTING] - INFO - SUCCESS: encoder_helper successfully encoded the categorical columns
-14:42:49 - [CHURN_LOGGING_AND_TESTING] - INFO - SUCCESS: perform_feature_engineering successfully split the data
-14:45:24 - [CHURN_LOGGING_AND_TESTING] - INFO - SUCCESS: logistic_model.pkl model successfully saved!
-14:45:24 - [CHURN_LOGGING_AND_TESTING] - INFO - SUCCESS: rfc_model.pkl model successfully saved!
