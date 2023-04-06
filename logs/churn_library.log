@@ -1,0 +1,6 @@
+20:38:18 - [CHURN_LOGGING_AND_TESTING] - INFO - SUCCESS: Testing import_data
+20:38:19 - [CHURN_LOGGING_AND_TESTING] - INFO - SUCCESS: EDA results successfully saved!
+20:38:19 - [CHURN_LOGGING_AND_TESTING] - INFO - SUCCESS: encoder_helper successfully encoded the categorical columns
+20:38:19 - [CHURN_LOGGING_AND_TESTING] - INFO - SUCCESS: perform_feature_engineering successfully split the data
+20:40:51 - [CHURN_LOGGING_AND_TESTING] - INFO - SUCCESS: logistic_model.pkl model successfully saved!
+20:40:51 - [CHURN_LOGGING_AND_TESTING] - INFO - SUCCESS: rfc_model.pkl model successfully saved!
